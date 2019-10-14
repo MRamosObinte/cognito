@@ -28,7 +28,6 @@ export interface Callback {
 export class CognitoUtil {
 
     public static _REGION = environment.region;
-    public static _IDENTITY_POOL_ID = environment.identityPoolId;
     public static _USER_POOL_ID = environment.userPoolId;
     public static _CLIENT_ID = environment.clientId;
     public static _POOL_DATA: any = {
@@ -64,7 +63,7 @@ export class CognitoUtil {
         let logins: CognitoIdentity.LoginsMap = {};
         logins[url] = idTokenJwt;
         let params = {
-            IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID, /* required */
+            IdentityPoolId: '', /* required */
             Logins: logins
         };
         let serviceConfigs = <awsservice.ServiceConfigurationOptions>{};

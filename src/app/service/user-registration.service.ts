@@ -7,7 +7,7 @@ import { NewPasswordUser } from "../public/auth/newpassword/newpassword.componen
 @Injectable()
 export class UserRegistrationService {
 
-    constructor(@Inject(CognitoUtil) public cognitoUtil: CognitoUtil) {
+    constructor(public cognitoUtil: CognitoUtil) {
     }
 
     register(user: RegistrationUser, callback: CognitoCallback): void {
@@ -33,7 +33,6 @@ export class UserRegistrationService {
                 callback.cognitoCallback(null, result);
             }
         });
-
     }
 
     confirmRegistration(username: string, confirmationCode: string, callback: CognitoCallback): void {
@@ -67,7 +66,6 @@ export class UserRegistrationService {
     }
 
     newPassword(newPasswordUser: NewPasswordUser, callback: CognitoCallback): void {
-        console.log(newPasswordUser);
         let authenticationData = {
             Username: newPasswordUser.username,
             Password: newPasswordUser.existingPassword,

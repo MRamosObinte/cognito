@@ -41,7 +41,6 @@ export class AwsUtil {
         creds.get(function (err) {
             if (!err) {
                 if (AwsUtil.primerLogin) {
-                    this.ddb.writeLogEntry("login");
                     AwsUtil.primerLogin = false;
                 }
             }
@@ -53,7 +52,7 @@ export class AwsUtil {
         let logins: Array<string> = [];
         logins[url] = idTokenJwt;
         let params = {
-            IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID, /* required */
+            IdentityPoolId: '', /* required */
             Logins: logins
         };
         return params;
