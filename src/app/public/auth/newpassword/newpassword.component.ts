@@ -55,8 +55,8 @@ export class NewPasswordComponent implements CognitoCallback {
         }
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (isLoggedIn)
+    estaLogueado(message: string, estaLogueado: boolean) {
+        if (estaLogueado)
             this.router.navigate(['/securehome']);
     }
 }

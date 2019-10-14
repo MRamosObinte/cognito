@@ -2,13 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { UserLoginService } from "../../../service/user-login.service";
 import { ChallengeParameters, CognitoCallback, LoggedInCallback } from "../../../service/cognito.service";
-import { DynamoDBService } from "../../../service/ddb.service";
 
 @Component({
     selector: 'awscognito-angular2-app',
     templateUrl: './login.html'
 })
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
+
     email: string;
     password: string;
     errorMessage: string;
@@ -19,7 +19,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     };
 
     constructor(public router: Router,
-        public ddb: DynamoDBService,
         public userService: UserLoginService
     ) {
     }
@@ -41,16 +40,12 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     cognitoCallback(message: string, result: any) {
         if (message != null) { //error
             this.errorMessage = message;
-            console.log("result: " + this.errorMessage);
             if (this.errorMessage === 'User is not confirmed.') {
-                console.log("redirecting");
                 this.router.navigate(['/home/confirmRegistration', this.email]);
             } else if (this.errorMessage === 'User needs to set password.') {
-                console.log("redirecting to set new password");
                 this.router.navigate(['/home/newPassword']);
             }
         } else { //success
-            this.ddb.writeLogEntry("login");
             this.router.navigate(['/securehome']);
         }
     }
@@ -68,8 +63,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         };
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (isLoggedIn) {
+    estaLogueado(message: string, estaLogueado: boolean) {
+        if (estaLogueado) {
             this.router.navigate(['/securehome']);
         }
     }
@@ -78,4 +73,5 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         this.mfaStep = false;
         return false;   //necessary to prevent href navigation
     }
+    
 }

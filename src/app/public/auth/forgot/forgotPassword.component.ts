@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserLoginService} from "../../../service/user-login.service";
-import {CognitoCallback} from "../../../service/cognito.service";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserLoginService } from "../../../service/user-login.service";
+import { CognitoCallback } from "../../../service/cognito.service";
 
 @Component({
     selector: 'awscognito-angular2-app',
@@ -12,7 +12,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback {
     errorMessage: string;
 
     constructor(public router: Router,
-                public userService: UserLoginService) {
+        public userService: UserLoginService) {
         this.errorMessage = null;
     }
 
@@ -44,14 +44,12 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     private sub: any;
 
     constructor(public router: Router, public route: ActivatedRoute,
-                public userService: UserLoginService) {
-        console.log("email from the url: " + this.email);
+        public userService: UserLoginService) {
     }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.email = params['email'];
-
         });
         this.errorMessage = null;
     }
@@ -68,7 +66,6 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     cognitoCallback(message: string) {
         if (message != null) { //error
             this.errorMessage = message;
-            console.log("result: " + this.errorMessage);
         } else { //success
             this.router.navigate(['/home/login']);
         }

@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {UserLoginService} from "../../service/user-login.service";
-import {Callback, CognitoUtil, LoggedInCallback} from "../../service/cognito.service";
-import {UserParametersService} from "../../service/user-parameters.service";
-import {Router} from "@angular/router";
+import { Component } from "@angular/core";
+import { UserLoginService } from "../../service/user-login.service";
+import { Callback, CognitoUtil, LoggedInCallback } from "../../service/cognito.service";
+import { UserParametersService } from "../../service/user-parameters.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -16,11 +16,10 @@ export class MyProfileComponent implements LoggedInCallback {
 
     constructor(public router: Router, public userService: UserLoginService, public userParams: UserParametersService, public cognitoUtil: CognitoUtil) {
         this.userService.isAuthenticated(this);
-        console.log("In MyProfileComponent");
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (!isLoggedIn) {
+    estaLogueado(message: string, estaLogueado: boolean) {
+        if (!estaLogueado) {
             this.router.navigate(['/home/login']);
         } else {
             this.userParams.getParameters(new GetParametersCallback(this, this.cognitoUtil));
@@ -36,15 +35,12 @@ export class Parameters {
 export class GetParametersCallback implements Callback {
 
     constructor(public me: MyProfileComponent, public cognitoUtil: CognitoUtil) {
-
     }
 
     callback() {
-
     }
 
     callbackWithParam(result: any) {
-
         for (let i = 0; i < result.length; i++) {
             let parameter = new Parameters();
             parameter.name = result[i].getName();

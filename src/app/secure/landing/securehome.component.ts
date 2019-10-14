@@ -6,21 +6,18 @@ import {LoggedInCallback} from "../../service/cognito.service";
 @Component({
     selector: 'awscognito-angular2-app',
     templateUrl: './secureHome.html'
-    // styleUrls: ['/assets/css/sb-admin.css']
 })
 export class SecureHomeComponent implements OnInit, LoggedInCallback {
 
     constructor(public router: Router, public userService: UserLoginService) {
         this.userService.isAuthenticated(this);
-        console.log("SecureHomeComponent: constructor");
     }
 
     ngOnInit() {
-
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (!isLoggedIn) {
+    estaLogueado(message: string, estaLogueado: boolean) {
+        if (!estaLogueado) {
             this.router.navigate(['/home/login']);
         }
     }

@@ -9,7 +9,6 @@ export class UserParametersService {
 
     getParameters(callback: Callback) {
         let cognitoUser = this.cognitoUtil.getCurrentUser();
-
         if (cognitoUser != null) {
             cognitoUser.getSession(function (err, session) {
                 if (err)
@@ -28,7 +27,6 @@ export class UserParametersService {
         } else {
             callback.callbackWithParam(null);
         }
-
-
     }
+    
 }
